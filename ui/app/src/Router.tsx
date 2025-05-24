@@ -26,6 +26,7 @@ import {
   SignInRoute,
   SignUpRoute,
   ExploreRoute,
+  ProfileRoute,
 } from './model/route';
 import {
   useIsAuthEnabled,
@@ -46,6 +47,7 @@ const DashboardView = lazy(() => import('./views/projects/dashboards/DashboardVi
 const ExploreView = lazy(() => import('./views/projects/explore/ExploreView'));
 const CreateEphemeralDashboardView = lazy(() => import('./views/projects/dashboards/CreateEphemeralDashboardView'));
 const EphemeralDashboardView = lazy(() => import('./views/projects/dashboards/EphemeralDashboardView'));
+const UserProfileView = lazy(() => import('./views/user/UserProfileView'));
 
 function Router(): ReactElement {
   const isAuthEnabled = useIsAuthEnabled();
@@ -129,10 +131,28 @@ function Router(): ReactElement {
             )}
           </Route>
           <Route
+            path={`${
+              ProjectRoute
+            }/ephemeraldashboards/:ephemeralDashboardName`}
+            element={
+              <RequireAuth>
+                <EphemeralDashboardView />
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/"
             element={
               <RequireAuth>
                 <HomeView />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={ProfileRoute}
+            element={
+              <RequireAuth>
+                <UserProfileView />
               </RequireAuth>
             }
           />

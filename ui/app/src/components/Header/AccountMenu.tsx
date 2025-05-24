@@ -17,6 +17,8 @@ import AccountCircle from 'mdi-material-ui/AccountCircle';
 import Logout from 'mdi-material-ui/Logout';
 import { useAuthToken } from '../../model/auth-client';
 import { ThemeSwitch } from './ThemeSwitch';
+import { ProfileRoute } from '../../model/route';
+import { Link as RouterLink } from 'react-router-dom';
 
 export function AccountMenu(): ReactElement {
   const { data: decodedToken } = useAuthToken();
@@ -57,6 +59,12 @@ export function AccountMenu(): ReactElement {
           {decodedToken?.sub}
         </MenuItem>
         <Divider />
+        <MenuItem component={RouterLink} to={ProfileRoute} onClick={handleCloseMenu}>
+          <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
+          Profile
+        </MenuItem>
         <ThemeSwitch isAuthEnabled />
         <MenuItem component="a" href="/api/auth/logout">
           <ListItemIcon>
